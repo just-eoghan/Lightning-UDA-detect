@@ -3,7 +3,6 @@ torch
 torchvision
 pytorch-lightning
 torchmetrics
-lightning-bolts
 
 # --------- hydra --------- #
 hydra-core==1.1.0
@@ -29,5 +28,5 @@ seaborn         # used in some callbacks
 jupyterlab      # better jupyter notebooks
 pudb            # debugger
 albumentations # image transforms
-whos-there      # get a notification when your training is complete
 numpy
+pycocotools
