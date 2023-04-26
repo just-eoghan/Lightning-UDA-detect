@@ -1,8 +1,6 @@
 defaults:
   - default.yaml
 
-gpus: 0
-
 min_epochs: 1
 max_epochs: 2
 
