@@ -2,3 +2,4 @@ data/cityscapes/images
 data/foggy_cityscapes/images
 logs/
 __pycache__
+.vscode/
