@@ -1,3 +1,4 @@
+# Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 from __future__ import print_function
 import torch
 import torch.nn.functional as F
@@ -45,6 +46,7 @@ class DAInsHead(nn.Module):
             in_channels (int): number of channels of the input feature
         """
         super(DAInsHead, self).__init__()
+        # 1024
         self.fc1_da = nn.Linear(in_channels, 1024)
         self.fc2_da = nn.Linear(1024, 1024)
         self.fc3_da = nn.Linear(1024, 1)
@@ -77,6 +79,7 @@ class DomainAdaptationModule(torch.nn.Module):
         stage_index = 4
         stage2_relative_factor = 2 ** (stage_index - 1)
         num_ins_inputs = res2_out_channels * stage2_relative_factor
+        # 1024 or /2 
 
         self.resnet_backbone = True
         self.avgpool = nn.AvgPool2d(kernel_size=7, stride=7)
@@ -94,7 +97,7 @@ class DomainAdaptationModule(torch.nn.Module):
         self.inshead = DAInsHead(num_ins_inputs)
         self.loss_evaluator = DALossComputation()
 
-    def forward(self, img_features, da_ins_feature, da_ins_labels, targets=None):
+    def forward(self, img_features, da_ins_feature, da_ins_labels, da_proposals, targets=None):
         """
         Arguments:
             img_features (list[Tensor]): features computed from the images that are

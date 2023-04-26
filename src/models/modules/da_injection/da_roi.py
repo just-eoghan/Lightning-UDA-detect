@@ -5,8 +5,9 @@ import torch.nn.functional as F
 from torchvision.ops import boxes as box_ops
 
 """
-    Contains updated functions to inject into torchvision FRCNN ROI module.
-    These additions allow FRCNN to function in the domain adaptive fashion.
+    Contains updated functions for standard FRCNN ROI module.
+
+    These additions allow FRCNN to function in the domain adaptive fashion
 """
 
 
@@ -24,9 +25,13 @@ def select_training_samples(
         gt_boxes = [t["boxes"].to(dtype) for t in targets]
         gt_labels = [t["labels"] for t in targets]
         gt_source = [t["is_source"] for t in targets]
+        # append ground-truth bboxes to propos
+        # https://github.com/facebookresearch/maskrcnn-benchmark/issues/570#issuecomment-473218934
+        # proposals = self.add_gt_proposals(proposals, gt_boxes) # Doesn't exist in da krumo but leave in anyway?
         for idx, (proposal, gt_box) in enumerate(zip(proposals, gt_boxes)):
             if proposal.nelement() == 0:
                 proposals[idx] = gt_box
+
         # get matching gt indices for each proposal
         labels, matched_targets, domain_labels = self.assign_targets_to_proposals(proposals, gt_boxes, gt_labels, gt_source, sample_for_da=da)
         sampled_pos_inds, sampled_neg_inds = self.fg_bg_sampler(labels)
@@ -64,6 +69,7 @@ def forward(
         """
         if targets is not None:
             for t in targets:
+                # TODO: https://github.com/pytorch/pytorch/issues/26731
                 floating_point_types = (torch.float, torch.double, torch.half)
                 assert t["boxes"].dtype in floating_point_types, "target boxes must of float type"
                 assert t["labels"].dtype == torch.int64, "target labels must of int64 type"
@@ -113,7 +119,8 @@ def forward(
             proposals,
             dict(loss_classifier=loss_classifier, loss_box_reg=loss_box_reg),
             box_features,
-            da_ins_labels
+            da_ins_labels,
+            da_proposals
         )
 
 def da_fastrcnn_loss(
@@ -149,9 +156,15 @@ def da_fastrcnn_loss(
 
     classification_loss = F.cross_entropy(class_logits, labels)
 
+    # get indices that correspond to the regression targets for
+    # the corresponding ground truth labels, to be used with
+    # advanced indexing
     sampled_pos_inds_subset = torch.where(labels > 0)[0]
     labels_pos = labels[sampled_pos_inds_subset]
-
+    # N, num_classes = class_logits.shape
+    # box_regression = box_regression.reshape(N, box_regression.size(-1) // 4, 4)
+    # box_regression[sampled_pos_inds_subset, labels_pos],
+    
     map_inds = 4 * labels_pos[:, None] + torch.tensor([0, 1, 2, 3], device=class_logits.device)
 
     box_loss = F.smooth_l1_loss(
@@ -184,6 +197,9 @@ def assign_targets_to_proposals(
             )
             labels_in_image = torch.zeros((proposals_in_image.shape[0],), dtype=torch.int64, device=device)
         else:
+            #  set to self.box_similarity when https://github.com/pytorch/pytorch/issues/27495 lands
+            
+            # Equivilant of match_targets_to_proposals in krumo
             if proposals_in_image.nelement() == 0:
                 proposals_in_image = gt_boxes_in_image
             match_quality_matrix = box_ops.box_iou(gt_boxes_in_image, proposals_in_image)
