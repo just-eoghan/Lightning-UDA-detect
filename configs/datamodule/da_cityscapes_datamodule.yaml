@@ -1,0 +1,11 @@
+_target_: src.datamodules.da_cityscapes_datamodule.DaCityscapesDatamodule
+
+source_data_dir: "${data_dir}/cityscapes/"
+target_data_dir: "${data_dir}/foggy_cityscapes/"
+train_batch_size: 2
+val_batch_size: 2
+num_workers: 0
+pin_memory: False
+num_classes: 6
+image_width: 1600
+image_height: 800
