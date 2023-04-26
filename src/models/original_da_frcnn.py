@@ -38,6 +38,7 @@ class DaFrcnnDetectionModel(LightningModule):
         source_images, source_targets, _ = batch[0]
         target_images, target_targets, _ = batch[1]
         loss_dict = self.model(source_images + target_images, source_targets + target_targets)
+        loss_dict = {"train/" + key: value for key, value in loss_dict.items()}
         self.log_dict(loss_dict, on_step=True, on_epoch=False, prog_bar=False)
         loss = sum(loss for loss in loss_dict.values())
         self.log("trian/loss_sum", loss, on_step=True, on_epoch=False, prog_bar=False)
@@ -50,8 +51,9 @@ class DaFrcnnDetectionModel(LightningModule):
 
     def on_validation_epoch_end(self):
         val_map = self.val_map.compute()
+        val_dict = {"val/" + key: value for key, value in val_map.items()}
         self.log("val/map50", val_map["map_50"], on_step=False, on_epoch=True, prog_bar=False)
-        self.log_dict(val_map, on_step=False, on_epoch=True, prog_bar=False)
+        self.log_dict(val_dict, on_step=False, on_epoch=True, prog_bar=False)
         self.val_map.reset()
 
     def test_step(self, batch: Any, batch_idx: int):
