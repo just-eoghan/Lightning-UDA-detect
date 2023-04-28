@@ -35,9 +35,6 @@ class DaFRCNN(GeneralizedRCNN):
         num_classes: int,
         backbone_out_channels: int,
         box_head_res2_out_channels: int,
-        consit_weight: float,
-        img_grl_weight: float,
-        ins_grl_weight: float
         ):
         super(GeneralizedRCNN, self).__init__()
 

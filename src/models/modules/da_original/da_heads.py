@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from torch import nn
 from src.models.modules.grl import GradientScalarLayer
 
-from src.models.modules.da_loss.da_loss import DALossComputation
+from src.models.modules.da_original.da_loss.loss_computation import DALossComputation
 
 class DAImgHead(nn.Module):
     """

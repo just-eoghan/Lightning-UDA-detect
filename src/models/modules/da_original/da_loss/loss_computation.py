@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from src.models.modules.da_loss.consistency_loss import consistency_loss
+from src.models.modules.da_original.da_loss.consistency_loss import consistency_loss
 
 class DALossComputation(object):
     """
