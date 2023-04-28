@@ -3,3 +3,5 @@ data/foggy_cityscapes/images
 logs/
 __pycache__
 .vscode/
+configs/logger/wandb.yaml
+configs/experiment/debug_cityscapes.yaml
