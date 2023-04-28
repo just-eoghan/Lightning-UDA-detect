@@ -31,7 +31,8 @@ class DaCityscapesDatamodule(LightningDataModule):
         pin_memory: bool = False,
         num_classes: int = 2,
         image_width: int = 160,
-        image_height: int = 120
+        image_height: int = 120,
+        cars_only: bool = False
     ):
         super().__init__()
 
@@ -76,9 +77,17 @@ class DaCityscapesDatamodule(LightningDataModule):
 
     def setup(self, stage: Optional[str] = None):
         if not self.data_train_source and not self.data_train_target and not self.data_val:
+
+            if self.hparams.cars_only:
+                train_ann_file = self.hparams.source_data_dir + "/annotations/caronly_instancesonly_filtered_gtFine_train.json"
+                val_ann_file = self.hparams.source_data_dir + "/annotations/caronly_instancesonly_filtered_gtFine_train.json"
+            else:
+                train_ann_file = self.hparams.source_data_dir + "/annotations/instancesonly_filtered_gtFine_train.json"
+                val_ann_file = self.hparams.source_data_dir + "/annotations/instancesonly_filtered_gtFine_val.json"
+
             self.data_train_source = DaFrcnnDataset(
                 self.hparams.source_data_dir + "images/",
-                self.hparams.source_data_dir + "/annotations/instancesonly_filtered_gtFine_train.json",
+                train_ann_file,
                 remove_images_without_annotations=True,
                 is_source=True,
                 transform=self.transforms
@@ -86,7 +95,7 @@ class DaCityscapesDatamodule(LightningDataModule):
 
             self.data_train_target = DaFrcnnDataset(
                 self.hparams.target_data_dir + "images/",
-                self.hparams.target_data_dir + "/annotations/instancesonly_filtered_gtFine_train.json",
+                train_ann_file,
                 remove_images_without_annotations=True,
                 is_source=False,
                 transform=self.transforms
@@ -94,7 +103,7 @@ class DaCityscapesDatamodule(LightningDataModule):
 
             self.data_val = DaFrcnnDataset(
                 self.hparams.target_data_dir + "images/",
-                self.hparams.target_data_dir + "/annotations/instancesonly_filtered_gtFine_val.json",
+                val_ann_file,
                 remove_images_without_annotations=True,
                 is_source=False,
                 transform=self.no_transforms

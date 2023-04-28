@@ -160,7 +160,6 @@ class DaFRCNN(GeneralizedRCNN):
             detections = self.transform.postprocess(detections, images.image_sizes, original_image_sizes)  # type: ignore[operator]
         else:
             detections, detector_losses, da_ins_feas, da_ins_labels, da_proposals = self.roi_heads(da_features, proposals, images.image_sizes, targets)
-            # da_features
             da_losses = self.da_heads(da_features.values(), da_ins_feas, da_ins_labels, da_proposals, targets)
             detections = self.transform.postprocess(detections, images.image_sizes, original_image_sizes)  # type: ignore[operator]
 
