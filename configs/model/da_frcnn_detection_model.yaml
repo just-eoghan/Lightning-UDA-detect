@@ -1,4 +1,4 @@
-_target_: src.models.original_da_frcnn.DaFrcnnDetectionModel
+_target_: src.models.da_frcnn.DaFrcnnDetectionModel
 
 lr: 0.0025
 weight_decay: 0.0001
