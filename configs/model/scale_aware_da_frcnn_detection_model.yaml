@@ -1,0 +1,12 @@
+_target_: src.models.da_frcnn.DaFrcnnDetectionModel
+
+lr: 0.0025
+weight_decay: 0.0001
+
+da_net:
+  _target_: src.models.modules.da_scale_aware.model.ScaleAwareDaFRCNN
+  backbone_out_channels: 256
+  box_head_res2_out_channels: 256
+  consit_weight: 0.1
+  img_grl_weight: 0.01
+  ins_grl_weight: 0.1
