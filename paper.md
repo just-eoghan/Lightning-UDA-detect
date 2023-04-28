@@ -8,13 +8,13 @@ tags:
 authors:
   - name: Eoghan Mulcahy
     equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+    affiliation: "1" # (Multiple affiliations must be quoted)
   - name: John Nelson
-    equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
+    corresponding: false # (This is how you can denote equal contributions between multiple authors)
     affiliation: 2
   - name: Pepijn Van de Ven
     corresponding: false # (This is how to denote the corresponding author)
-    affiliation: 3
+    affiliation: "1, 2"
 affiliations:
  - name: Electronic & Computer Engineering, University of Limerick, Limerick, V94T9PX, Ireland
    index: 1
