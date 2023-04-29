@@ -26,7 +26,7 @@ bibliography: paper.bib
 
 # Summary
 
-Todo
+Here, we present a library for easily running unsupervised domain adaptation based object detection. It is made easy to install and includes automated provenance through configuration files and built-in experiment tracking.
 
 # Statement of need
 
