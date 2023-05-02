@@ -192,7 +192,7 @@ class SaDomainAdaptationModule(torch.nn.Module):
     feature vectors, domain labels and proposals. Works for both FPN and non-FPN.
     """
 
-    def __init__(self, res2_out_channels, in_channels, consit_weight, img_grl_weight, ins_grl_weight):
+    def __init__(self, in_channels, consit_weight, img_grl_weight, ins_grl_weight):
         super(SaDomainAdaptationModule, self).__init__()
 
         num_ins_inputs = 1024
@@ -206,7 +206,6 @@ class SaDomainAdaptationModule(torch.nn.Module):
         self.grl_img_consist = GradientScalarLayer(self.consit_weight * img_grl_weight)
         self.grl_ins_consist = GradientScalarLayer(self.consit_weight * ins_grl_weight)
 
-        print('in channels = ' + str(in_channels))
         self.imghead = DAImgHead(in_channels) # in_channels
         self.loss_evaluator = SaDALossComputation()
 

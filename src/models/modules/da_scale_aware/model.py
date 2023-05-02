@@ -62,7 +62,6 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
         setattr(self.roi_heads, 'assign_targets_to_proposals', bound_method)
         
         self.da_heads = SaDomainAdaptationModule(
-            res2_out_channels=box_head_res2_out_channels, 
             in_channels=backbone_out_channels,
             consit_weight=consit_weight,
             img_grl_weight=img_grl_weight,
