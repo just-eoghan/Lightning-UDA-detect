@@ -30,3 +30,5 @@ pudb            # debugger
 albumentations # image transforms
 numpy
 pycocotools
+einops
+kornia
