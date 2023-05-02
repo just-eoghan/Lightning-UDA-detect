@@ -6,6 +6,6 @@ train_batch_size: 2
 val_batch_size: 2
 num_workers: 0
 pin_memory: False
-num_classes: 6
+num_classes: 9
 image_width: 1600
 image_height: 800
