@@ -21,13 +21,9 @@ def select_training_samples(
         self.check_targets(targets)
         assert targets is not None
         dtype = proposals[0].dtype
-        device = proposals[0].device
         gt_boxes = [t["boxes"].to(dtype) for t in targets]
         gt_labels = [t["labels"] for t in targets]
         gt_source = [t["is_source"] for t in targets]
-        # append ground-truth bboxes to propos
-        # https://github.com/facebookresearch/maskrcnn-benchmark/issues/570#issuecomment-473218934
-        # proposals = self.add_gt_proposals(proposals, gt_boxes) # Doesn't exist in da krumo but leave in anyway?
         for idx, (proposal, gt_box) in enumerate(zip(proposals, gt_boxes)):
             if proposal.nelement() == 0:
                 proposals[idx] = gt_box

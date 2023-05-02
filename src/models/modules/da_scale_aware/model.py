@@ -8,6 +8,8 @@ from torchvision import models
 
 from torchvision.models.detection.generalized_rcnn import GeneralizedRCNN
 
+from torchvision.models.detection.faster_rcnn import FasterRCNN_ResNet50_FPN_Weights
+
 from src.models.modules.da_injection.da_rpn import assign_targets_to_anchors as da_rpn_assign_targets_to_anchors
 from src.models.modules.da_injection.da_rpn import forward as da_rpn_forward
 from src.models.modules.da_injection.da_roi import forward as da_roi_forward, select_training_samples as da_roi_select_training_samples
@@ -36,7 +38,7 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
         ):
         super(GeneralizedRCNN, self).__init__()
         
-        frcnn_base_model = models.detection.fasterrcnn_resnet50_fpn()
+        frcnn_base_model = models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
         in_features = frcnn_base_model.roi_heads.box_predictor.cls_score.in_features
         frcnn_base_model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 
