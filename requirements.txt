@@ -32,3 +32,4 @@ numpy
 pycocotools
 einops
 kornia
+timm
