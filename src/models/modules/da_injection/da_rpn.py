@@ -2,11 +2,59 @@
 import torch
 from typing import Dict, List, Tuple, Optional
 from torchvision.models.detection.image_list import ImageList
+import torch.nn.functional as F
 
 """
     Contains updated functions to inject into torchvision FRCNN RPN module.
     These additions allow FRCNN to function in the domain adaptive fashion.
 """
+
+def compute_loss(
+    self, objectness: torch.Tensor, pred_bbox_deltas: torch.Tensor, labels: List[torch.Tensor], regression_targets: List[torch.Tensor],
+    use_pseudo_labeling_weight='none'
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Args:
+        objectness (Tensor)
+        pred_bbox_deltas (Tensor)
+        labels (List[Tensor])
+        regression_targets (List[Tensor])
+
+    Returns:
+        objectness_loss (Tensor)
+        box_loss (Tensor)
+    """
+
+    sampled_pos_inds, sampled_neg_inds = self.fg_bg_sampler(labels)
+    sampled_pos_inds = torch.where(torch.cat(sampled_pos_inds, dim=0))[0]
+    sampled_neg_inds = torch.where(torch.cat(sampled_neg_inds, dim=0))[0]
+
+    sampled_inds = torch.cat([sampled_pos_inds, sampled_neg_inds], dim=0)
+
+    objectness = objectness.flatten()
+
+    labels = torch.cat(labels, dim=0)
+    regression_targets = torch.cat(regression_targets, dim=0)
+
+    box_loss = F.smooth_l1_loss(
+        pred_bbox_deltas[sampled_pos_inds],
+        regression_targets[sampled_pos_inds],
+        beta=1 / 9,
+        reduction="sum",
+    ) / (sampled_inds.numel())
+
+    if use_pseudo_labeling_weight=='none':
+        objectness_loss = F.binary_cross_entropy_with_logits(
+            objectness[sampled_inds], labels[sampled_inds]
+        )
+    elif use_pseudo_labeling_weight=='prob':
+        weight = F.sigmoid(objectness[sampled_inds])
+        objectness_loss = F.binary_cross_entropy_with_logits(
+            objectness[sampled_inds], labels[sampled_inds], reduction='none'
+        )
+        objectness_loss = torch.mean(objectness_loss*weight)
+
+    return objectness_loss, box_loss
 
 def assign_targets_to_anchors(
     self, anchors: List[torch.Tensor], targets: List[Dict[str, torch.Tensor]]
