@@ -7,7 +7,7 @@ tags:
   - object detection
 authors:
   - name: Eoghan Mulcahy
-    equal-contrib: true
+    corresponding: true
     affiliation: "1" # (Multiple affiliations must be quoted)
   - name: John Nelson
     corresponding: false # (This is how you can denote equal contributions between multiple authors)
