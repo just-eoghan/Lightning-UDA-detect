@@ -26,11 +26,13 @@ bibliography: paper.bib
 
 # Summary
 
-Here, we present a library for easily running unsupervised domain adaptation based object detection. It is made easy to install and includes automated provenance through configuration files and built-in experiment tracking. Unsupervised domain adaptation (UDA) can be used to transfer knowledge from a source domain with annotated data to a target domain with unlabelled data only. This is particulary useful in real-world application based settings as annotation tasks are widely acknowledged to be arduous and time-consuming. Within recent years, several algorithms were developed to utilize UDA specifically for object detection. However, implementations are difficult to install and lack user friendliness and provenance. Lightning-UDA-Detect is designed to allow researches to easily interact with several popular UDA architechtures for object detection tasks.
+Here, we present a library for easily running unsupervised domain adaptation (UDA) object detection. It is designed to be easy to install and includes automated provenance through configuration files and built-in experiment tracking. UDA can be used to transfer knowledge from a source domain with annotated data to a target domain with unlabelled data only. This is particulary useful in real-world application based settings as annotation tasks are widely acknowledged to be arduous and time-consuming. Within recent years, several algorithms were developed to utilize UDA specifically for object detection. However, implementations are difficult to install and lack user friendliness and provenance. Lightning-UDA-Detect is designed to allow researches to easily interact with and extend several popular UDA architechtures specifically for object detection tasks.
 
 # Statement of need
 
 Todo
+
+Test citation [@Chen2018] DA-FRCNN paper.
 
 # Citations
 
