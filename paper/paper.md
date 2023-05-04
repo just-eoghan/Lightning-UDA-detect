@@ -30,14 +30,12 @@ Here, we present a library for easily running unsupervised domain adaptation (UD
 
 # Statement of need
 
-Lorum ipsum I want lalalalala 123 and a 456. [@Oza23]
-
-![Caption for example figure.\label{fig:map50}](lit-uda-map50.pdf)
-
-Ref to figure \autoref{fig:map50}
+Todo
 
 # Features & Functionality
 
-Todo
+![Mean Average Precisions @50.\label{fig:map50}](lit-uda-map50.pdf)
+
+The MAP@50 scores for each model can be seen in \autoref{fig:map50}.
 
 # References
