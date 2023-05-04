@@ -34,10 +34,10 @@ Todo
 
 Test citation [@Chen2018] DA-FRCNN paper.
 
-Sample reference to figure (\autoref{fig:UI}).
-
 Test figure:
-![Caption for example figure.\label{fig:UI}](lit-uda-map50.pdf){ width=100% }
+![Caption for example figure.\label{fig:UI}](Test_card.png){ width=100% }
+
+Sample reference to figure (\autoref{fig:UI}).
 
 # Features & Functionality
 
