@@ -34,9 +34,10 @@ Todo
 
 Test citation [@Chen2018] DA-FRCNN paper.
 
-Test figure ![Caption for example figure.\label{fig:example}](lit-uda-map50.pdf)
+Test figure:
+![Caption for example figure.\label{example}](lit-uda-map50.pdf)
 
-Sample reference to figure \autoref{fig:example}.
+Sample reference to figure \autoref{example}.
 
 # Features & Functionality
 
