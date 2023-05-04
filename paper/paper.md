@@ -30,11 +30,11 @@ Here, we present a library for easily running unsupervised domain adaptation (UD
 
 # Statement of need
 
-Todo
+Lorum ipsum I want lalalalala 123 and a 456. [@Oza23]
 
-Test citation [@Chen2018] DA-FRCNN paper.
+![Caption for example figure.\label{fig:map50}](lit-uda-map50.pdf)
 
-Test figure ![Caption for example figure.\label{fig:example}](lit-uda-map50.pdf)
+Ref to figure \autoref{fig:map50}
 
 # Features & Functionality
 
