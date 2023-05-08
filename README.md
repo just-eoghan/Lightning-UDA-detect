@@ -3,6 +3,7 @@ A collection of popular unsupervised domain adaptation architechtures. Made easy
 
 
 Click the Weights & Biases logo to see logs from our runs.
+
 <a href="https://wandb.ai/eoghan/Lightning-UDA-detect"><img alt="Weights and Biases" src="https://img.shields.io/badge/Weights_&_Biases-FFCC33?style=for-the-badge&logo=WeightsAndBiases&logoColor=black"></a>
 
 # Getting started
