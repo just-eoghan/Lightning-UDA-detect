@@ -1,5 +1,5 @@
-data/cityscapes/images
-data/foggy_cityscapes/images
+data/cityscapes/images/leftImg8bit
+data/foggy_cityscapes/images/leftImg8bit
 logs/
 __pycache__
 .vscode/
