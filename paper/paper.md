@@ -26,7 +26,7 @@ bibliography: paper.bib
 
 # Summary
 
-Here, we present a library for easily running unsupervised domain adaptation (UDA) object detection. It is designed to be easy to install and includes automated provenance through configuration files and built-in experiment tracking. UDA can be used to transfer knowledge from a source domain with annotated data to a target domain with unlabelled data only. This is particulary useful in real-world application based settings as annotation tasks are widely acknowledged to be arduous and time-consuming. Within recent years, several algorithms were developed to utilize UDA specifically for object detection. However, implementations are difficult to install and lack user friendliness. Lightning-UDA-Detect is designed to allow researchers to easily interact with and extend several popular UDA architechtures specifically for object detection tasks.
+Here, we present a library for easily running unsupervised domain adaptation (UDA) object detection. It is designed to be easy to install and includes automated provenance through configuration files and built-in experiment tracking. UDA can be used to transfer knowledge from a source domain with annotated data to a target domain with unlabelled data only. This is particulary useful in real-world application based settings as annotation tasks are widely acknowledged to be arduous and time-consuming. Within recent years, several algorithms were developed to utilize UDA specifically for object detection. However, implementations are difficult to install and lack user friendliness. *Lightning-UDA-Detect* is designed to allow researchers to easily interact with and extend several popular UDA architechtures specifically for object detection tasks.
 
 # Statement of need
 
@@ -34,18 +34,24 @@ The deep learning object detection architechture Faster-RCNN has been extended t
 
 Each of the official implementations for DA [@krumo], SADA [@chen] and MIC [@hoyer] are built on maskrcnn-benchmark [@massa2018mrcnn] which has many compilation issues and has also been deperecated. This makes the installation and running of these important implementations difficult. 
 
-Lightning-UDA-Detect integrates with the stable and popular package torchvision [@torchvision2016] which is part of the Pytorch [@NEURIPS2019_9015] project. This reduces the dependancies of Lightning-UDA-Detect and removes the need to compile from source. Lightning-UDA-Detect unifies three important architechtures of unsupervised domain adaptation based detection in an easy to install and run package. This reduces the barrier to entry for working with UDA based detection models.
+*Lightning-UDA-Detect* integrates with the stable and popular package torchvision [@torchvision2016] which is part of the Pytorch [@NEURIPS2019_9015] project. This reduces the dependancies of *Lightning-UDA-Detect* and removes the need to compile from source. *Lightning-UDA-Detect* unifies three important architechtures of unsupervised domain adaptation based detection in an easy to install and run package. This reduces the barrier to entry for working with UDA based detection models.
 
 
 # Features & Functionality
 
+- *Lightning-UDA-Detect* uses Hydra [@Yadan2019Hydra] configuration files. This allows for straightforward changing of experiment variables by hierarchial configuration by composition. Using this approach ensures provenance by creating a human readable record of the experiment parameters which are separate and independant of the source code.
+
+- *Lightning-UDA-Detect* has built-in online logging with Weights \& Biases [@wandb]. When running experiments, configuration values are written to an immutable run-file. Throughout runs all relevant metrics e.g. training loss, validation accuracy etc. are stored in the online logger. This run history is used to prove and easily reproduce results.
+
+- *Lightning-UDA-Detect* integrates with Pytorch-Lightning [@W.Falconetal2022] a deep learning framework for researchers and practitioners. This allows for automated usage of best practices e.g. checkpointing, early-stopping etc. It also makes code more readable and understandable by abstracting model engineering code into standard function such and `training_steps` and `process_data` etc.
+
 ![Mean Average Precision \@50.\label{fig:map50}](lit-uda-map50.pdf)
 
-The MAP@50 validation graph during training for each model can be seen in \autoref{fig:map50}.
+The mAP@50 validation graph during training for each model can be seen in \autoref{fig:map50}. Mean average precision (mAP) is the standard metric for measuring the accuracy of object detectors. All models ran on one NVIDIA GeForce RTX 2080 SUPER GPU. Models were trained for 60,000 steps with the same seed for each run. 
 
 ![Max Mean Avearge Precision \@50. \label{fig:maxMap50}](map50-bar-plot.pdf)
 
-The max MAP@50 scores for each model can be seen in \autoref{fig:maxMap50}.
+The max mAP@50 scores for each model can be seen in \autoref{fig:maxMap50}. Our DA model achieved a score of 28.48 mAP@50 on the *Cityscapes* dataset which is 2.48 higher than the offical reported value.  Our SADA model achieved a score of 36.93 mAP@50 which is 7.07 lower than the officially reported value of 44.00 mAP@50. Finally our MIC model achieved an mAP@50 score of 44.46 which is 3.14 lower than the official value of 47.60. Adversarial training is unstable by design so it's quite normal that performance in different trials varys. The starting weights of the official implementations were not used in our experiments which also contributes. However, our results show similar improvement in accuracies going from DA to SADA and finally to MIC.
 
 
 # References
