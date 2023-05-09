@@ -72,6 +72,20 @@ DA
 
 Edit these experiments by going to configs/experiment and editing the YAML files.
 
+# References
+
+## Papers
+
+- https://ieeexplore.ieee.org/document/8578450/
+- https://link.springer.com/10.1007/s11263-021-01447-x
+- https://arxiv.org/abs/2212.01322
+
+## Implementations
+
+- https://github.com/krumo/Domain-Adaptive-Faster-RCNN-PyTorch
+- https://github.com/yuhuayc/sa-da-faster
+- https://github.com/lhoyer/MIC
+
 # Experiment Results
 
 ![Mean Average Precision \@50.](/paper/lit-uda-map50.pdf)
