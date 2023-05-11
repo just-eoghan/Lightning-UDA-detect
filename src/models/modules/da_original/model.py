@@ -8,7 +8,6 @@ from collections import namedtuple
 from typing import Tuple, List
 import warnings
 
-from torchvision import models
 from torchvision.models.detection.generalized_rcnn import GeneralizedRCNN
 from src.models.modules.da_injection.da_rpn import assign_targets_to_anchors as da_rpn_assign_targets_to_anchors
 from src.models.modules.da_injection.da_rpn import forward as da_rpn_forward
@@ -20,6 +19,7 @@ from torchvision.models.detection.rpn import RPNHead, AnchorGenerator
 from torchvision.ops.poolers import MultiScaleRoIAlign
 from src.models.modules.da_original.resnet_head import ResNetHead
 from src.models.modules.da_original.frcnn_predictor import FastRCNNPredictor
+from torchvision.models.resnet import ResNet50_Weights
 
 class DaFRCNN(GeneralizedRCNN):
     """
@@ -38,7 +38,7 @@ class DaFRCNN(GeneralizedRCNN):
         ):
         super(GeneralizedRCNN, self).__init__()
 
-        res = torchvision.models.resnet50(pretrained=True)
+        res = torchvision.models.resnet50(weights=ResNet50_Weights.DEFAULT)
         # res.children())[:-3] is just resnet with the last 3 layers missing (needed for domain adapt)
         self.backbone = nn.Sequential(*list(res.children())[:-3]).to(torch.device("cuda"))
         self.backbone.out_channels = backbone_out_channels
