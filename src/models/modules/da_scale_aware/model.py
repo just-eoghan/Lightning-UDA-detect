@@ -129,8 +129,6 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
                         f" Found invalid box {degen_bb} for target at index {target_idx}."
                     )
 
-        x = images.tensors[0]
-
         ims = torch.stack((normalize_image(images.tensors[0]), normalize_image(images.tensors[1])))
 
         da_features = self.backbone(ims)

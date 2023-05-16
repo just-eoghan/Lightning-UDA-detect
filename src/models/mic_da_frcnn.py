@@ -127,7 +127,7 @@ class MicDaFrcnnDetectionModel(LightningModule):
 
         log_dict = {"train/" + key: value for key, value in log_dict.items()}
         self.log_dict(log_dict, on_step=True, on_epoch=False, prog_bar=False)
-        self.log("trian/loss_sum", loss, on_step=True, on_epoch=False, prog_bar=False)
+        self.log("trian/loss_sum", loss, on_step=True, on_epoch=False, prog_bar=True)
         return loss
 
     def validation_step(self, batch: Any, batch_idx: int):

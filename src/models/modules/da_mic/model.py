@@ -6,7 +6,7 @@ from collections import OrderedDict
 from typing import Tuple, List
 import warnings
 
-from torchvision import models
+import torchvision
 
 from torchvision.models.detection.generalized_rcnn import GeneralizedRCNN
 from torchvision.models.detection.faster_rcnn import FasterRCNN_ResNet50_FPN_Weights
@@ -17,7 +17,13 @@ from src.models.modules.da_mic_injection.da_rpn import compute_loss as da_rpn_co
 from src.models.modules.da_mic_injection.da_roi import forward as da_roi_forward, select_training_samples as da_roi_select_training_samples
 from src.models.modules.da_mic_injection.da_roi import assign_targets_to_proposals as da_assign_targets_to_proposals
 from src.models.modules.da_scale_aware.da_heads import SaDomainAdaptationModule
-from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+from torchvision.models.resnet import ResNet50_Weights
+
+def normalize_image(image):
+    min_val = torch.min(image)
+    max_val = torch.max(image)
+    normalized_image = (image - min_val) / (max_val - min_val)
+    return normalized_image
 
 class MicDaFRCNN(GeneralizedRCNN):
     """
@@ -38,9 +44,12 @@ class MicDaFRCNN(GeneralizedRCNN):
         ):
         super(GeneralizedRCNN, self).__init__()
 
-        frcnn_base_model = models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
-        in_features = frcnn_base_model.roi_heads.box_predictor.cls_score.in_features
-        frcnn_base_model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        kwargs = dict(box_batch_size_per_image = 256)
+        frcnn_base_model = torchvision.models.detection.fasterrcnn_resnet50_fpn(
+            weights_backbone=ResNet50_Weights.IMAGENET1K_V2,
+            num_classes=num_classes, 
+            **kwargs
+        )
 
         self.backbone = frcnn_base_model.backbone
         self.transform = frcnn_base_model.transform
@@ -117,7 +126,12 @@ class MicDaFRCNN(GeneralizedRCNN):
                         f" Found invalid box {degen_bb} for target at index {target_idx}."
                     )
 
-        da_features = self.backbone(images.tensors)
+        # Loop
+        ims = []
+        for im in images.tensors:
+            ims.append(normalize_image(im))
+
+        da_features = self.backbone(torch.stack(ims))
 
         if not isinstance(da_features, OrderedDict):
             da_features = OrderedDict({"0": da_features})
