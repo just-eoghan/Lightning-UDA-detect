@@ -6,7 +6,7 @@ class FastRCNNPredictor(nn.Module):
 
         stage_index = 4
         stage2_relative_factor = 2 ** (stage_index - 1)
-        res2_out_channels = 256 #1024
+        res2_out_channels = 256
         num_inputs = res2_out_channels * stage2_relative_factor
 
         self.avgpool = nn.AvgPool2d(kernel_size=7, stride=7)

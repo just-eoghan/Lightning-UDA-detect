@@ -79,7 +79,6 @@ class DomainAdaptationModule(torch.nn.Module):
         stage_index = 4
         stage2_relative_factor = 2 ** (stage_index - 1)
         num_ins_inputs = res2_out_channels * stage2_relative_factor
-        # 1024 or /2 
 
         self.resnet_backbone = True
         self.avgpool = nn.AvgPool2d(kernel_size=7, stride=7)

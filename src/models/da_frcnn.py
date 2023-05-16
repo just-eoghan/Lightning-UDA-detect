@@ -41,7 +41,7 @@ class DaFrcnnDetectionModel(LightningModule):
         loss_dict = {"train/" + key: value for key, value in loss_dict.items()}
         self.log_dict(loss_dict, on_step=True, on_epoch=False, prog_bar=False)
         loss = sum(loss for loss in loss_dict.values())
-        self.log("trian/loss_sum", loss, on_step=True, on_epoch=False, prog_bar=False)
+        self.log("trian/loss_sum", loss, on_step=True, on_epoch=False, prog_bar=True)
         return loss
 
     def validation_step(self, batch: Any, batch_idx: int):
