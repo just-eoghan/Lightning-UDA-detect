@@ -4,11 +4,13 @@ from collections import OrderedDict
 from typing import Tuple, List
 import warnings
 
-from torchvision import models
+import torchvision
 
 from torchvision.models.detection.generalized_rcnn import GeneralizedRCNN
 
-from torchvision.models.detection.faster_rcnn import FasterRCNN_ResNet50_FPN_Weights
+from torchvision.models.detection.faster_rcnn import FasterRCNN_ResNet50_FPN_V2_Weights
+
+from torchvision.models.detection.backbone_utils import resnet_fpn_backbone
 
 from src.models.modules.da_injection.da_rpn import assign_targets_to_anchors as da_rpn_assign_targets_to_anchors
 from src.models.modules.da_injection.da_rpn import forward as da_rpn_forward
@@ -16,7 +18,16 @@ from src.models.modules.da_injection.da_roi import forward as da_roi_forward, se
 from src.models.modules.da_injection.da_roi import assign_targets_to_proposals as da_assign_targets_to_proposals
 from src.models.modules.da_scale_aware.da_heads import SaDomainAdaptationModule
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+from torchvision.models.resnet import ResNet50_Weights
+from torchvision.models.detection.faster_rcnn import FasterRCNN
+from torchvision.models.detection.rpn import RPNHead, AnchorGenerator
+from src.models.modules.da_scale_aware.fpn_predictor import FPNPredictor
 
+def normalize_image(image):
+    min_val = torch.min(image)
+    max_val = torch.max(image)
+    normalized_image = (image - min_val) / (max_val - min_val)
+    return normalized_image
 
 class ScaleAwareDaFRCNN(GeneralizedRCNN):
     """
@@ -38,9 +49,12 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
         ):
         super(GeneralizedRCNN, self).__init__()
         
-        frcnn_base_model = models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
-        in_features = frcnn_base_model.roi_heads.box_predictor.cls_score.in_features
-        frcnn_base_model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        kwargs = dict(box_batch_size_per_image = 256)
+        frcnn_base_model = torchvision.models.detection.fasterrcnn_resnet50_fpn(
+            weights_backbone=ResNet50_Weights.IMAGENET1K_V2,
+            num_classes=num_classes, 
+            **kwargs
+        )
 
         self.backbone = frcnn_base_model.backbone
         self.transform = frcnn_base_model.transform
@@ -81,7 +95,7 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
                 like `scores`, `labels` and `mask` (for Mask R-CNN models).
 
         """
-        
+
         if self.training and targets is None:
             raise ValueError("In training mode, targets should be passed")
         if self.training:
@@ -115,7 +129,11 @@ class ScaleAwareDaFRCNN(GeneralizedRCNN):
                         f" Found invalid box {degen_bb} for target at index {target_idx}."
                     )
 
-        da_features = self.backbone(images.tensors)
+        x = images.tensors[0]
+
+        ims = torch.stack((normalize_image(images.tensors[0]), normalize_image(images.tensors[1])))
+
+        da_features = self.backbone(ims)
 
         if not isinstance(da_features, OrderedDict):
             da_features = OrderedDict({"0": da_features})
