@@ -18,12 +18,12 @@ $ pip install -r requirements.txt
 
 ## Data Download
 
+> You will need to create an account with cityscapes to access this data.
+
 Go to https://www.cityscapes-dataset.com/downloads/ and download the following folders;
 
 1. leftImg8bit_trainvaltest.zip https://www.cityscapes-dataset.com/file-handling/?packageID=3
 2. leftImg8bit_trainvaltest_foggy.zip https://www.cityscapes-dataset.com/file-handling/?packageID=29
-
-**You will need to create an account to access this data.**
 
 The zips contain the following files;
 
