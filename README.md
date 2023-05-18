@@ -18,6 +18,7 @@ $ pip install -r requirements.txt
 
 ## Data Download
 
+> **Note**
 > You will need to create an account with cityscapes to access this data.
 
 Go to https://www.cityscapes-dataset.com/downloads/ and download the following folders;
