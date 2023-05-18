@@ -4,7 +4,7 @@ defaults:
   - override /trainer: default.yaml
   - override /model: scale_aware_da_frcnn_detection_model.yaml
   - override /datamodule: da_cityscapes_datamodule.yaml
-  - override /callbacks: wandb.yaml 
+  - override /callbacks: default.yaml 
   - override /mode: exp.yaml
   - override /logger: wandb.yaml
 

@@ -1,17 +1,11 @@
 defaults:
   - default.yaml
 
-# upload_code_as_artifact:
-#   _target_: src.callbacks.wandb_callbacks.UploadCodeAsArtifact
-#   code_dir: ${work_dir}/src
+upload_code_as_artifact:
+  _target_: src.callbacks.wandb_callbacks.UploadCodeAsArtifact
+  code_dir: ${work_dir}/src
 
-# upload_ckpts_as_artifact:
-#   _target_: src.callbacks.wandb_callbacks.UploadCheckpointsAsArtifact
-#   ckpt_dir: "checkpoints/"
-#   upload_best_only: False
-
-# log_bounding_boxes:
-#   _target_: src.callbacks.wandb_callbacks.LogBoundingBoxes
-
-# telegram_notification:
-#   _target_: src.callbacks.whosthere_callbacks.TelegramNotification
+upload_ckpts_as_artifact:
+  _target_: src.callbacks.wandb_callbacks.UploadCheckpointsAsArtifact
+  ckpt_dir: "checkpoints/"
+  upload_best_only: False

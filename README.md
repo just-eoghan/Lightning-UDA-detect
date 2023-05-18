@@ -61,6 +61,9 @@ Set `project` to the name of the project you have created in W&B.
 
 You can run models easily through the following command line calls
 
+If you don't want to use W&B just add logger=csv to the end of your run command e.g.
+`python run.py experiment=x logger=csv`
+
 MIC
 `python run.py experiment=mic_da_cityscapes`
 
