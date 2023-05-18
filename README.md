@@ -88,6 +88,6 @@ Edit these experiments by going to configs/experiment and editing the YAML files
 
 # Experiment Results
 
-![Mean Average Precision \@50.](/paper/lit-uda-map50.pdf)
+![Mean Average Precision \@50.](/paper/lit-uda-map50.png)
 
-![Max Mean Average Precision \@50.](/paper/map50-bar-plot.pdf)
+![Max Mean Average Precision \@50.](/paper/map50-bar-plot.png)

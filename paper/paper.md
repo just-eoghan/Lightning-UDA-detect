@@ -47,11 +47,11 @@ The official implementations for DA [@krumo], SADA [@chen] and MIC [@hoyer] are 
 
 ![Mean Average Precision \@50.\label{fig:map50}](lit-uda-map50.pdf)
 
-The mAP@50 validation graph during training for each model can be seen in \autoref{fig:map50}. Mean average precision (mAP) is determined by calculating the average precision (AP) which is defined by how well a predicted bounding box aligns with the ground truth bounding box considering at least a 50% overlap threshold, each of these AP scores are then averaged to calculate the overall mAP@50. We used [@torchmetrics] to calculate our mAP metrics. All models were run on one NVIDIA GeForce RTX 2080 SUPER GPU. Models were trained for 60,000 steps with the same seed for each run.
+The mAP@50 validation graph during training for each model can be seen in \autoref{fig:map50}. Mean average precision (mAP) is determined by calculating the average precision (AP) which is defined by how well a predicted bounding box aligns with the ground truth bounding box considering at least a 50% overlap threshold, each of these AP scores are then averaged to calculate the overall mAP@50. We used torchmetrics [@torchmetrics] to calculate our mAP values. All models were run on one NVIDIA GeForce RTX 2080 SUPER GPU. Models were trained for 60,000 steps with the same seed for each run.
 
 ![Max Mean Avearge Precision \@50. \label{fig:maxMap50}](map50-bar-plot.pdf)
 
-The max mAP@50 scores for each model can be seen in \autoref{fig:maxMap50}. Our DA model achieved a score of 41.85 mAP@50 on the *Cityscapes* dataset which is 0.55 higher than the offically reported value of 41.30.  Our SADA model achieved a score of 44.35 mAP@50 which is 0.35 higher than the officially reported value of 44.00 mAP@50. Finally our MIC model achieved an mAP@50 score of 48.14 which is 0.54 higher than the official value of 47.60. Our results show our re-implementations can be trusted to perform correctly for each of the models.
+The max mAP@50 scores for each model can be seen in \autoref{fig:maxMap50}. Our DA model achieved a score of 41.85 mAP@50 on the *Cityscapes* dataset which is 0.55 higher than the offically reported value of 41.30.  Our SADA model achieved a score of 44.35 mAP@50 which is 0.35 higher than the officially reported value of 44.00 mAP@50. Finally our MIC model achieved a mAP@50 score of 48.14 which is 0.54 higher than the official value of 47.60. Our results show our re-implementations can be trusted to perform correctly for each of the models.
 
 # Further Development
 
