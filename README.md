@@ -26,36 +26,25 @@ Go to https://www.cityscapes-dataset.com/downloads/ and download the following f
 1. leftImg8bit_trainvaltest.zip https://www.cityscapes-dataset.com/file-handling/?packageID=3
 2. leftImg8bit_trainvaltest_foggy.zip https://www.cityscapes-dataset.com/file-handling/?packageID=29
 
-The zips contain the following files;
 
-```
-leftImg8bit
-    val
-        munster
-        lindau
-        frankfurt
-        ...
-    train
-        aachen
-        bochum
-        bremen
-        ...
-    test
-        berlin
-        bielefeld
-        bonn
-        ...
-```
+## Data Preprocessing
 
-Extract the leftimg8bit folder from leftImg8bit_trainvaltest.zip into data/cityscapes/images
+1. Extract the leftimg8bit folder from leftImg8bit_trainvaltest.zip into data/cityscapes/images
 
-Extract the leftimg8bit_foggy folder from leftImg8bit_trainvaltest_foggy.zip into data/foggy_cityscapes/images
+`unzip leftImg8bit_trainvaltest.zip -d ./data/cityscapes/images/`
 
-leftimg8bit_foggy contains 15000 images, this is because it includes 3 different levels of fog set by a beta parameter. The value of beta we use is 0.02. 
+2. Extract the leftimg8bit_foggy folder from leftImg8bit_trainvaltest_foggy.zip into data/foggy_cityscapes/images
 
-We provide a script `preprocess/foggy_data_beta_0.02.py` for re-creating the folder with only the 5000 images files with the 0.02 beta value.
+`unzip leftImg8bit_trainvaltest_foggy.zip -d ./data/foggy_cityscapes/images/`
 
-You can run this script with the following command 
+
+> **NOTE**
+>
+>leftimg8bit_foggy contains 15000 images, this is because it includes 3 different levels of fog set by a beta parameter. The value of beta we use is 0.02. 
+>
+>We provide a script `preprocess/foggy_data_beta_0.02.py` for re-creating the folder with only the 5000 images files with the 0.02 beta value.
+
+3. Run the preprocessing script to reduce the foggy dataset to only images with a beta of 0.02
 
 `you@your-pc:~/Lightning-UDA-detect$ python preprocess/foggy_data_beta_0.02.py`
 
@@ -70,33 +59,15 @@ data/
 │           ├── test
 │           │   ├── berlin
 │           │   ├── bielefeld
-│           │   ├── bonn
-│           │   ├── leverkusen
-│           │   ├── mainz
-│           │   └── munich
+│           │   ├── ...
 │           ├── train
 │           │   ├── aachen
 │           │   ├── bochum
-│           │   ├── bremen
-│           │   ├── cologne
-│           │   ├── darmstadt
-│           │   ├── dusseldorf
-│           │   ├── erfurt
-│           │   ├── hamburg
-│           │   ├── hanover
-│           │   ├── jena
-│           │   ├── krefeld
-│           │   ├── monchengladbach
-│           │   ├── strasbourg
-│           │   ├── stuttgart
-│           │   ├── tubingen
-│           │   ├── ulm
-│           │   ├── weimar
-│           │   └── zurich
+│           │   ├── ...
 │           └── val
 │               ├── frankfurt
 │               ├── lindau
-│               └── munster
+│               └── ...
 └── foggy_cityscapes
     ├── annotations
     └── images
@@ -104,46 +75,24 @@ data/
             ├── test
             │   ├── berlin
             │   ├── bielefeld
-            │   ├── bonn
-            │   ├── leverkusen
-            │   ├── mainz
-            │   └── munich
+            │   ├── ...
             ├── train
             │   ├── aachen
             │   ├── bochum
-            │   ├── bremen
-            │   ├── cologne
-            │   ├── darmstadt
-            │   ├── dusseldorf
-            │   ├── erfurt
-            │   ├── hamburg
-            │   ├── hanover
-            │   ├── jena
-            │   ├── krefeld
-            │   ├── monchengladbach
-            │   ├── strasbourg
-            │   ├── stuttgart
-            │   ├── tubingen
-            │   ├── ulm
-            │   ├── weimar
-            │   └── zurich
+            │   ├── ...
             └── val
                 ├── frankfurt
                 ├── lindau
-                └── munster
+                └── ...
 ```
 
-There should be 5000 files in each leftImg8bit folder.
-
-You can verify this by running;
+4. Verify there are 5000 image files in each leftImg8bit folder.
 
 `find ./data/cityscapes/images/leftImg8bit/ -type f | wc -l`  
 for original images
 
 `find ./data/foggy_cityscapes/images/leftImg8bit/ -type f | wc -l`  
 for foggy_images
-
-Both should return the number 5000.
 
 ## Weights and Biases
 
@@ -157,23 +106,26 @@ Set `project` to the name of the project you have created in W&B.
 You can run models easily through the following command line calls
 
 > **NOTE**
-> If you don't want to use W&B just add logger=csv to the end of your run command
 >
->`python run.py experiment=x logger=csv`
+> If you don't want to use W&B just add logger=csv to the end of your run command
+
+`python run.py experiment=x logger=csv`
 
 >MIC
->
->`python run.py experiment=mic_da_cityscapes`
+
+`python run.py experiment=mic_da_cityscapes`
 
 >SADA
->
->`python run.py experiment=scale_aware_da_cityscapes`
+
+`python run.py experiment=scale_aware_da_cityscapes`
 
 >DA
->
->`python run.py experiment=original_da_cityscapes`
 
-You can edit the parameters of these experiments by going to configs/experiment and editing the YAML files.
+`python run.py experiment=original_da_cityscapes`
+
+> **NOTE**
+>
+>You can edit the parameters of these experiments by going to configs/experiment and editing the YAML files.
 
 # References
 
