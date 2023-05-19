@@ -39,7 +39,6 @@ Go to https://www.cityscapes-dataset.com/downloads/ and download the following f
 
 
 > **NOTE**
->
 >leftimg8bit_foggy contains 15000 images, this is because it includes 3 different levels of fog set by a beta parameter. The value of beta we use is 0.02. 
 >
 >We provide a script `preprocess/foggy_data_beta_0.02.py` for re-creating the folder with only the 5000 images files with the 0.02 beta value.
@@ -106,7 +105,6 @@ Set `project` to the name of the project you have created in W&B.
 You can run models easily through the following command line calls
 
 > **NOTE**
->
 > If you don't want to use W&B just add logger=csv to the end of your run command
 
 `python run.py experiment=x logger=csv`
@@ -124,7 +122,6 @@ You can run models easily through the following command line calls
 `python run.py experiment=original_da_cityscapes`
 
 > **NOTE**
->
 >You can edit the parameters of these experiments by going to configs/experiment and editing the YAML files.
 
 # References
