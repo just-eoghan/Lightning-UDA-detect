@@ -31,21 +31,26 @@ Go to https://www.cityscapes-dataset.com/downloads/ and download the following f
 
 1. Extract the leftimg8bit folder from leftImg8bit_trainvaltest.zip into data/cityscapes/images
 
-`unzip leftImg8bit_trainvaltest.zip -d ./data/cityscapes/images/`
+```
+unzip leftImg8bit_trainvaltest.zip -d ./data/cityscapes/images/
+```
 
 2. Extract the leftimg8bit_foggy folder from leftImg8bit_trainvaltest_foggy.zip into data/foggy_cityscapes/images
 
-`unzip leftImg8bit_trainvaltest_foggy.zip -d ./data/foggy_cityscapes/images/`
+```
+unzip leftImg8bit_trainvaltest_foggy.zip -d ./data/foggy_cityscapes/images/
+```
 
-
-> **NOTE**
->leftimg8bit_foggy contains 15000 images, this is because it includes 3 different levels of fog set by a beta parameter. The value of beta we use is 0.02. 
+> **Note**
+> leftimg8bit_foggy contains 15000 images, this is because it includes 3 different levels of fog set by a beta parameter. The value of beta we use is 0.02. 
 >
->We provide a script `preprocess/foggy_data_beta_0.02.py` for re-creating the folder with only the 5000 images files with the 0.02 beta value.
+> We provide a script `preprocess/foggy_data_beta_0.02.py` for re-creating the folder with only the 5000 images files with the 0.02 beta value.
 
 3. Run the preprocessing script to reduce the foggy dataset to only images with a beta of 0.02
 
-`you@your-pc:~/Lightning-UDA-detect$ python preprocess/foggy_data_beta_0.02.py`
+```
+python preprocess/foggy_data_beta_0.02.py
+```
 
 After following the previous steps your data directory should look like this;
 
@@ -87,10 +92,14 @@ data/
 
 4. Verify there are 5000 image files in each leftImg8bit folder.
 
-`find ./data/cityscapes/images/leftImg8bit/ -type f | wc -l`  
+```
+find ./data/cityscapes/images/leftImg8bit/ -type f | wc -l
+```  
 for original images
 
-`find ./data/foggy_cityscapes/images/leftImg8bit/ -type f | wc -l`  
+```
+find ./data/foggy_cityscapes/images/leftImg8bit/ -type f | wc -l
+```  
 for foggy_images
 
 ## Weights and Biases
@@ -104,25 +113,33 @@ Set `project` to the name of the project you have created in W&B.
 
 You can run models easily through the following command line calls
 
-> **NOTE**
+> **Note**
 > If you don't want to use W&B just add logger=csv to the end of your run command
 
-`python run.py experiment=x logger=csv`
+```
+python run.py experiment=mic_da_cityscapes logger=csv
+```
 
->MIC
+#### MIC
 
-`python run.py experiment=mic_da_cityscapes`
+```
+python run.py experiment=mic_da_cityscapes
+```
 
->SADA
+#### SADA
 
-`python run.py experiment=scale_aware_da_cityscapes`
+```
+python run.py experiment=scale_aware_da_cityscapes
+```
 
->DA
+#### DA
 
-`python run.py experiment=original_da_cityscapes`
+```
+python run.py experiment=original_da_cityscapes
+```
 
-> **NOTE**
->You can edit the parameters of these experiments by going to configs/experiment and editing the YAML files.
+> **Note**
+> You can edit the parameters of these experiments by going to configs/experiment and editing the YAML files.
 
 # References
 
