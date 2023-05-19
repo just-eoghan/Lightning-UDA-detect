@@ -1,6 +1,6 @@
 import os
 
-folder_path = "../data/foggy_cityscapes/images/leftImg8bit_foggy"
+folder_path = "./data/foggy_cityscapes/images/leftImg8bit_foggy"
 
 # check if the folder exists if not error
 if not os.path.exists(folder_path):
