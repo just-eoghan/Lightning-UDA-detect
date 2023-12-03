@@ -29,7 +29,6 @@ jupyterlab==3.6.3       # better jupyter notebooks
 pudb==2022.1.3          # debugger
 albumentations==1.3.0   # image transforms
 numpy==1.19.5           # math library
-pycocotools==2.0.6      # used for dataloading
 einops==0.6.1           # tensor ops for mic
 kornia==0.6.12          # used for mic
 timm==0.6.13            # used for mic
