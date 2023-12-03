@@ -198,3 +198,32 @@ There are some manual steps before it can be run mainly due to the dataset downl
 ![Mean Average Precision \@50.](/paper/lit-uda-map50.png)
 
 ![Max Mean Average Precision \@50.](/paper/map50-bar-plot.png)
+
+## Contribution Guidelines
+
+### Getting Started
+
+
+1. Fork the Repository
+
+2. Clone the forked Repository
+
+3. Create a Branch with a clear name
+
+### Making Changes
+1. Follow the existing code style.
+2. Make small, clear commits where possible.
+
+
+### Submitting a Pull Request
+1. Provide a detailed description.
+2. Include tests (Weights and Biases provenance log) if applicable.
+
+### Review Process
+1. Maintainers will review and give feedback.
+2. Be ready to make changes if needed.
+
+### Acknowledgments
+Thanks for contributing!
+
+Feel free to ask questions. Happy coding! 🚀
