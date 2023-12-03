@@ -189,6 +189,12 @@ python run.py experiment=original_da_cityscapes
 
 # Experiment Results
 
+A test of the code is shown in detail at https://wandb.ai/eoghan/Lightning-UDA-detect.
+
+The test can be easily called by running `python run.py experiment=x` as shown above.
+
+There are some manual steps before it can be run mainly due to the dataset download required through Cityscapes and the size of the dataset 40gb total.
+
 ![Mean Average Precision \@50.](/paper/lit-uda-map50.png)
 
 ![Max Mean Average Precision \@50.](/paper/map50-bar-plot.png)
