@@ -8,13 +8,45 @@ Click the Weights & Biases logo to see logs from our runs.
 
 # Getting started
 
-## Environment & Package Install
+## Complete Installation Steps
+
+Install a relevant miniconda https://docs.conda.io/projects/miniconda/en/latest/
+
+### Linux ~ Ubuntu 20.04
 
 ```
 $ conda create --name Lightning-UDA-detect python=3.8
 $ conda activate Lightning-UDA-detect
+$ pip install pycocotools==2.0.6
 $ pip install -r requirements.txt
 ```
+
+### Windows 11
+
+Using the Anaconda Prompt Terminal (Search Anaconda on Windows Search)
+
+```
+$ conda create --name Lightning-UDA-detect python=3.8
+$ conda activate Lightning-UDA-detect
+$ pip install cython
+$ pip install pycocotools-windows==2.0
+$ pip install -r requirements.txt
+```
+
+### MacOS (Apple Silicon)
+
+```
+$ conda create -n Lightning-UDA-detect
+$ conda activate Lightning-UDA-detect
+$ conda config --env --set subdir osx-64
+$ conda install python=3.8
+$ pip install pycocotools==2.0.6
+$ pip install -r requirements.txt
+```
+
+Creating the conda environment ensures all packages are installed in an isolated virtual environment.
+
+All of the required dependencies are stored within the requirements.txt file.
 
 ## Data Download
 
